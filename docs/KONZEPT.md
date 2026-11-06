@@ -70,6 +70,24 @@ modul-garten.de (WordPress/WooCommerce)
 - **Produktdaten und Preise** zunächst als versionierte Dateien im Repo. Später kann ein Admin-Bereich hinzukommen.
 - **pnpm** als Paketmanager für das Monorepo, **Vitest** für Tests.
 
+### Backend: in WordPress oder daneben?
+
+Durchgespielt am Beispiel: Familie Becker konfiguriert 20 m², klickt auf „Jetzt vorbestellen" und bezahlt die Pauschale. Zwei Wochen später öffnet der Techniker beim Aufmaß dieselbe Konfiguration auf dem Tablet und ändert sie auf 18,5 m².
+
+| | **A: alles in WordPress (Plugin)** | **B: eigene kleine API neben WordPress** |
+|---|---|---|
+| Wo liegt Beckers Konfiguration? | WordPress-Datenbank (eigene Tabellen) | Eigene Datenbank (Postgres) |
+| Wer rechnet den Preis? | Browser in TypeScript, Server müsste in PHP nachrechnen (doppelte Logik) | Browser und Server nutzen **denselben** TypeScript-Code |
+| Aufmaß-Tablet, Versionen, Kundenstatus, Kapazitätsplanung | Muss als WP-Admin-Erweiterung gebaut werden (mühsam) | Normale App-Funktionen |
+| Zahlung | WooCommerce direkt | API legt WooCommerce-Bestellung an, WooCommerce meldet „bezahlt" zurück (Webhook) |
+| Risiko | WP-/Plugin-Updates können den Konfigurator beeinflussen | Ein System mehr zu betreiben (Updates, Backups) |
+| Kosten | keine zusätzlichen | ca. 5–20 €/Monat |
+| Bei Shop-Wechsel | Neubau nötig | Konfigurator bleibt, nur die Shop-Anbindung wird getauscht |
+
+**Empfehlung: B.** Der Konfigurator wird mit Aufmaß-Modus, Versionen und Terminplanung eine richtige Anwendung. WordPress bleibt Schaufenster und Kasse. Den Betrieb (Updates, Backups) übernimmt Claude mit.
+
+Zum WordPress-Relaunch gehört ein eigenes Plugin `mg-konfigurator`. Es bindet den Konfigurator als Block bzw. Shortcode ein, stellt das Produkt „Vorbestellpauschale" bereit und meldet Zahlungen an die API.
+
 ## Ausbaustufen
 
 1. **MVP:** Terrassenkonfigurator mit 2D-Ansicht und Richtpreis. Konfiguration speichern, Link per E-Mail versenden, Aufmaßpauschale über WooCommerce buchen. Das Team erhält eine Benachrichtigung.
