@@ -17,7 +17,8 @@ Es wird abwechselnd an zwei Rechnern entwickelt. **Das Git-Repo ist die einzige 
 | Datei | Inhalt |
 |---|---|
 | `docs/STATUS.md` | Aktueller Stand, nächste Schritte, offene Fragen – **zuerst lesen** |
-| `docs/PROZESS.md` | Kundenprozess + Reglement (Entwurf, in Abstimmung) |
+| `docs/PROZESS.md` | Kundenprozess v1 + Regeln (Entwurf, in Abstimmung) |
+| `docs/SIMULATIONEN.md` | Rollenspiele, aus denen der Prozess abgeleitet ist |
 | `docs/KONZEPT.md` | Prozess- und Architekturkonzept (Entwurf) |
 | `docs/ANFORDERUNGEN.md` | Was der Konfigurator können soll |
 | `docs/ENTSCHEIDUNGEN.md` | Technische Entscheidungen mit Begründung (Log) |
